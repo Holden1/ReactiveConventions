@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import LoginButton from './LoginButton';
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+    static displayName = NavMenu.name;
 
   constructor (props) {
     super(props);
@@ -13,7 +14,7 @@ export class NavMenu extends Component {
     this.state = {
       collapsed: true
     };
-  }
+    }
 
   toggleNavbar () {
     this.setState({
@@ -38,6 +39,8 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/talk">Talk</NavLink>
+                  </NavItem><LoginButton /><NavItem>
+                                
                 </NavItem>
               </ul>
             </Collapse>
