@@ -89,11 +89,15 @@ export default function Convention() {
       <h1>Create Convention</h1>
           <div className="row row-cols-2">
               <div className="col">
-                  <b>Convention Name: </b>
-                  {conventionNameInput} 
+                  <div className="row row-cols-2">
+                      <div className="col"><b>Convention Name: </b></div>
+                      <div className="col">{conventionNameInput}</div>
+                  </div>
                   <br />
-                  <b>Convention Date: </b>
-                  {conventionDateInput}
+                  <div className="row row-cols-2">
+                      <div className="col"><b>Convention Date: </b></div>
+                      <div className="col">{conventionDateInput}</div>
+                  </div>            
                   <br />
                   
                 </div>
@@ -104,7 +108,7 @@ export default function Convention() {
               </div>
 
           </div>
-          <button onClick={createConvention}> Create</button>
+          <button className="btn btn-primary" onClick={createConvention}> Create</button>
           <p>Status: { createConventionStatus}</p>
     </div>
   );

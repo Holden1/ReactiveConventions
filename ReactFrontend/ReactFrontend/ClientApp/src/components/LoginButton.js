@@ -4,10 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 const LoginButton = () => {
     const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
     if (!isAuthenticated)
-        return <button onClick={() => loginWithRedirect()}>Log In</button>;
+        return <button className="btn" onClick={() => loginWithRedirect()}>Log In</button>;
     else
         return (
-            <button onClick={() => logout({ returnTo: window.location.origin })}>
+            <button className="btn" onClick={() => logout({ returnTo: window.location.origin })}>
                 Log Out
             </button>
         );

@@ -8,10 +8,13 @@ export default function Talk() {
 
   const { getAccessTokenSilently } = useAuth0();
   const [topicSelectOptions, setTopicSelectOptions] = useState([]);
-  const [conventionSelectOptions, setConventionSelectOptions] = useState([]);
-  const [conventionVenue, setConventionVenue] = useState([]);
+    const [conventionSelectOptions, setConventionSelectOptions] = useState([]);
+    const [createStatus, setCreateStatus] = useState([]);
 
-  const [conventionName, conventionNameInput] = useInput({ type: "text" });
+    const [selectedConventionId, setConventionVenue] = useState([]);
+    const [selectedTopic, setSelectedTopic] = useState([]);
+
+  const [talkName, talkNameInput] = useInput({ type: "text" });
 
   useEffect(() => {
     axios
@@ -42,7 +45,7 @@ export default function Talk() {
                     const selectList = [];
                     console.log(response)
                     response.data.forEach(function (element) {
-                        selectList.push({ label: element.name, value: element.name });
+                        selectList.push({ label: element.name, value: element.id });
                     });
                     setConventionSelectOptions(selectList);
 
@@ -52,22 +55,54 @@ export default function Talk() {
         }
     }, []);
 
-  const handleVenueChange = (venue) => {
-    setConventionVenue(venue.value);
-    console.log(venue.value);
-  };
+  const handleConventionChange = (venueInput) => {
+      setConventionVenue(venueInput.value);
+      console.log(venueInput.value);
+    };
+    const handleTopicChange = (topicInput) => {
+        setSelectedTopic(topicInput.value);
+        console.log(topicInput.value);
+    };
+    const createTalk = async () => {
+        try {
+            const accessToken = await getAccessTokenSilently({
+                audience: `https://localhost:44314/`,
+                scope: "create:talk",
+            });
+
+            axios.post("https://localhost:44398/api/Talks", {
+                conventionId: selectedConventionId,
+                name: talkName,
+                topic: selectedTopic,
+            },
+                {
+                    headers: {
+                        'authorization': `Bearer ${accessToken}`
+                    }
+                }).then((response) => {
+                    setCreateStatus(response.status);
+                }).catch((error) => {
+                    setCreateStatus(error.message);
+                });
+        } catch (e) {
+            setCreateStatus(e)
+        }
+
+    }
 
   return (
     <div className="Talk">
       <h1>Create Talk</h1>
       <b>Talk Name: </b>
-      {conventionNameInput}
+      {talkNameInput}
       <br />
       <b>Convention</b>
-          <Select onChange={handleVenueChange} options={conventionSelectOptions} />
+          <Select onChange={handleConventionChange} options={conventionSelectOptions} />
       <b>Topic</b>
-          <Select onChange={handleVenueChange} options={topicSelectOptions} />
-      <button onClick=""> Create</button>
+          <Select onChange={handleTopicChange} options={topicSelectOptions} />
+          <button className="btn btn-primary" onClick={createTalk}> Create</button>
+
+          <p>Status: {createStatus}</p>
     </div>
   );
 }

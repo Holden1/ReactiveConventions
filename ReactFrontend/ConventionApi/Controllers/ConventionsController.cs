@@ -93,6 +93,7 @@ namespace ConventionApi.Controllers
 
         // DELETE: api/Conventions/5
         [HttpDelete("{id}")]
+        [Authorize("create:convention")]
         public async Task<IActionResult> DeleteConvention(int id)
         {
             var convention = await _context.Convention.FindAsync(id);

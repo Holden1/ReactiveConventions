@@ -15,5 +15,9 @@ namespace ConventionApi.Data
         }
 
         public DbSet<ConventionApi.Model.Convention> Convention { get; set; }
+
+        public DbSet<ConventionApi.Model.Registration> Registration { get; set; }
+
+        public DbSet<ConventionApi.Model.Talk> Talk { get; set; }
     }
 }

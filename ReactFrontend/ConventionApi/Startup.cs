@@ -59,6 +59,8 @@ namespace ConventionApi
             {
                 options.AddPolicy("read:convention", policy => policy.Requirements.Add(new HasScopeRequirement("read:convention", domain)));
                 options.AddPolicy("create:convention", policy => policy.Requirements.Add(new HasScopeRequirement("create:convention", domain)));
+                options.AddPolicy("create:talk", policy => policy.Requirements.Add(new HasScopeRequirement("create:talk", domain)));
+                options.AddPolicy("read:talk", policy => policy.Requirements.Add(new HasScopeRequirement("read:talk", domain)));
             });
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 

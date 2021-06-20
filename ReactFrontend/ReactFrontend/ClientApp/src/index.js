@@ -16,7 +16,7 @@ ReactDOM.render(
             clientId="bypZjWpdWJZFzjc0bEU0GNRcdvqFn57M"
             redirectUri={window.location.origin}
             audience="https://localhost:44314/"
-            scope="read:convention create:convention"
+            scope="read:convention create:convention read:talk create:talk"
         >
             <App />
         </Auth0Provider>
